@@ -32,3 +32,10 @@ and is what the tests here verify.
 - ``xs`` and ``ys`` must have the same length.
 - Evaluation outside the closed interval spanned by ``xs`` raises ``ValueError``.
 - Flat data (all ``ys`` equal) produces a flat interpolant.
+
+## Design notes
+
+The window stores values eagerly rather than keeping running aggregates. Running
+sums drift with floating point over long streams, and recomputing from a small
+buffer is cheap enough that the drift is not worth the speed.
+
